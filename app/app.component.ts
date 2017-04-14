@@ -1,9 +1,29 @@
 import { Component } from '@angular/core';
 
-const todos=[
-    'Изучить JavaScript',
-    'Изучить Angular 2',
-    'Написать приложение'
+class Todo {
+    constructor(public title: string, 
+                public completed: boolean = false ) {
+    }
+}
+
+
+
+const todos: Todo[]=[
+{
+    title: 'Изучить JavaScript',
+    completed: false
+},
+{
+    title: 'Изучить Angular 2',
+    completed: true
+},
+{
+    title: 'Написать приложение',
+    completed: true
+},
+    
+    
+    
 ];
 
 @Component({
@@ -14,7 +34,29 @@ const todos=[
 })
 
 export class AppComponent{
-    title = 'Angular 2Do';
-    todos = todos;
+    title: string = 'Angular 2Do';
+    todos: Todo[] = todos;
+    newTodoTitle: string = '';
+
+    create() {
+        let todo: Todo = new Todo( this.newTodoTitle );
+
+        this.todos.push(todo);
+        this.newTodoTitle = '';
+
+    }
+
+    toggle(todo: Todo ) {
+        todo.completed = !todo.completed;
+        console.log('toggle', todo);
+    }
+
+    delete(todo: Todo) {
+        let index = this.todos.indexOf(todo);
+
+        if (index > -1) {
+            this.todos.splice(index, 1);
+        }
+    }
 
 }
